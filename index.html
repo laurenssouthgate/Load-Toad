@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W8 WATCHER</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+</head>
+<body>
+    <header>
+        <div class="warning"><p><i class="fa-solid fa-triangle-exclamation"></i> Attention! This app is for estimation purposes only! For accurate weight use a weighbridge! <i class="fa-solid fa-triangle-exclamation"></i></p></div>
+        <div class="logo">
+            <h1>W8 WATCHER</h1>
+        </div>
+    </header>
+
+    <div class="weight-remaining">
+        <h2>Weight remaining:</h2>
+        <h1 id="weight">0 kg</h1>
+    </div>
+
+    <form class="vehicle-weight">
+        <label for="vehicle-weight-input">Vehicle weight unloaded (kg)</label>
+        <input type="number" class="vehicle-weight-input" id="vehicle-weight-input">
+        <label for="max-vehicle-weight-input">Max vehicle weight (kg)</label>
+        <input type="number" class="max-vehicle-weight-input" id="max-vehicle-weight-input">
+        <button class="vehicle-weight-btn" type="submit">
+            Submit
+        </button>
+    </form>
+
+
+    <form class="add-load">
+        <h2>Add a load:</h2>
+        <label for="load-name-input">Load Name:</label>
+        <input type="text" class="load-name-input" id="load-name-input">
+        <label for="load-weight-input">Load weight (kg):</label>
+        <input type="text" class="load-weight-input" id="load-weight-input">
+        <button class="add-load-btn" type="submit">
+            Add
+        </button>
+    </form>
+
+    <div class="load-container">
+        <ul class="load-list"></ul>
+    </div>
+
+
+<script src="./app.js"></script>
+</body>
+</html>

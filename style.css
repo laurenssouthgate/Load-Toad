@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: linear-gradient(#cc0000, #8f0000);
+    color: white;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header{
+    margin: 2rem;
+}
+
+.warning{
+    display: flex;
+    justify-content: center;
+}
+
+.warning i{
+    color: #ffd500;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    margin: 2em;
+}
+
+.logo h1 {
+    background: #ffd500;
+    color: black;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 3rem;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 2%;
+    text-align: center;
+}
+
+#weight {
+    font-size: 5rem;
+}
+
+.weight-remaining{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vehicle-weight{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.load{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.load h2{
+    padding: 1rem;
+}
+
+.add-load{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form input, form button{
+    padding: 0.5rem;
+    font-size: 2rem;
+    border: none;
+    background: white;
+    margin: 1rem;
+}
+
+form label{
+    padding: 1rem;
+}
+
+form button {
+    background: #6b0000;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+form button:hover {
+    color: #6b0000;
+    background: white;
+}
