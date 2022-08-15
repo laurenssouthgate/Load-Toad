@@ -68,8 +68,8 @@ function deleteLoad(e){
         load.remove();
 
     };
-    const text = item.parentElement.innerText;
-    const itemWeight= parseInt(text.replace(/[^0-9\.]/g, ''), 10);
+    const text = item.parentElement.innerText.split('-');
+    const itemWeight= parseInt(text[1].replace(/[^0-9\.]/g, ''), 10);
 
     totalWeight.weight = parseInt(totalWeight.weight) + parseInt(itemWeight);
     weight.innerHTML = totalWeight.weight + " kg";
