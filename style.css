@@ -99,3 +99,46 @@ form button:hover {
     color: #6b0000;
     background: white;
 }
+
+.load-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.load-list {
+    min-width: 30%;
+    list-style: none;
+}
+
+.load {
+    margin: 0.5rem;
+    background: white;
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.load li {
+    flex: 1;
+}
+
+.delete-btn {
+    background: #8f0000;
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.load-item {
+    padding: 0rem 0.5rem;
+}
+
+.fa-solid, .fa-xmark {
+    pointer-events: none;
+}
