@@ -26,6 +26,8 @@ header{
 .warning{
     display: flex;
     justify-content: center;
+    text-align: center;
+    font-size: .7rem;
 }
 
 .warning i{
@@ -35,7 +37,7 @@ header{
 .logo{
     display: flex;
     justify-content: center;
-    margin: 2em;
+    margin: .5em;
 }
 
 .logo h1 {
@@ -85,7 +87,7 @@ header{
 
 form input, form button{
     padding: 0.5rem;
-    font-size: 2rem;
+    font-size: 1rem;
     border: none;
     background: white;
     margin: .2rem;
