@@ -66,8 +66,14 @@ function addLoad(e){
     if (loadName.value === "") {
         loadName.value = "Unnamed Load"
     };
+    //creates alert if the user has not submitted vehicle weight or max weight first
+    if (vehicleWeightInput.weight === 0 || maxVehicleWeightInput.weight === 0){
+        alert("Please enter Vehicle Weight and Max Vehicle Weight first!");
+        loadName.value = "";
+        loadWeight.value = "";
+    }
     //creates an alert to remind the user to enter a value if the load weight field is left blank, and clears it if so
-    if (loadInput.value === 0 || loadInput.value === "") {
+    else if (loadInput.value === 0 || loadInput.value === "") {
         alert("Please enter a weight")
         loadName.value = "";
         loadWeight.value = "";
