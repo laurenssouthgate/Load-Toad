@@ -8,7 +8,7 @@ body{
     background-image: linear-gradient(#cc0000, #8f0000);
     color: white;
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 header{
@@ -45,7 +45,7 @@ header{
 .logo h1 {
     background: #ffd500;
     color: black;
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'Oswald', sans-serif;
     font-size: 2.3rem;
     padding-left: 1em;
     padding-right: 1em;
@@ -53,8 +53,13 @@ header{
     text-align: center;
 }
 
-#weight {
+.weight{
     font-size: 2rem;
+}
+
+.over-weight{
+    font-size: 2rem;
+    color: #ff0000;
 }
 
 .weight-remaining{

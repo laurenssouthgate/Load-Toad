@@ -39,7 +39,9 @@ const updateWeight = function(){
     weight.innerHTML = remainingWeightTotal.weight + " kg";
     //creates alert with warning if the vehicle is overweight
     if (remainingWeightTotal.weight < 0) {
-        alert("Your vehicle is overweight!")
+        alert("Your vehicle is overweight!");
+        weight.classList.remove("weight");
+        weight.classList.add("over-weight");
     };
 }
 
