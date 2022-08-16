@@ -53,10 +53,12 @@ const updateWeight = function(){
 //calculate initial unloaded weight of vehicle
 function calculateWeightUnloaded(e){
     e.preventDefault();
+    //check whether there is any items in the load list, and void the button if there are, to avoid issues
     if (loadList.innerHTML.trim() !== ""){
         void(0);
     }
     else {
+        //calculate the remaining weight
         vehicleWeightInput.weight = vehicleWeight.value;
         maxVehicleWeightInput.weight = maxWeight.value;
         remainingWeightTotal.weight = maxVehicleWeightInput.weight - vehicleWeightInput.weight - loadWeight.weight;
@@ -127,10 +129,11 @@ function deleteLoad(e){
     const text = item.parentElement.innerText.split('-');
     //after split extracts number only to return the weight to be removed
     const itemWeight= parseInt(text[1].replace(/[^0-9\.]/g, ''), 10);
-    //recalculates remaining weight total using item weight
+    //checks whether the load list is empty and sets load weight to 0 if so
     if (loadList.innerHTML.trim() === "") {
         loadWeight.weight = 0;
     };
+    //calculate remaining weight
     remainingWeightTotal.weight = parseInt(remainingWeightTotal.weight) + parseInt(itemWeight);
     updateWeight();
 
