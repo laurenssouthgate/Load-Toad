@@ -53,10 +53,15 @@ const updateWeight = function(){
 //calculate initial unloaded weight of vehicle
 function calculateWeightUnloaded(e){
     e.preventDefault();
-    vehicleWeightInput.weight = vehicleWeight.value;
-    maxVehicleWeightInput.weight = maxWeight.value;
-    remainingWeightTotal.weight = maxVehicleWeightInput.weight - vehicleWeightInput.weight;
-    updateWeight();
+    if (loadList.innerHTML.trim() !== ""){
+        void(0);
+    }
+    else {
+        vehicleWeightInput.weight = vehicleWeight.value;
+        maxVehicleWeightInput.weight = maxWeight.value;
+        remainingWeightTotal.weight = maxVehicleWeightInput.weight - vehicleWeightInput.weight - loadWeight.weight;
+        updateWeight();
+    };
 };
 
 //calculate weight when load is added
@@ -123,6 +128,9 @@ function deleteLoad(e){
     //after split extracts number only to return the weight to be removed
     const itemWeight= parseInt(text[1].replace(/[^0-9\.]/g, ''), 10);
     //recalculates remaining weight total using item weight
+    if (loadList.innerHTML.trim() === "") {
+        loadWeight.weight = 0;
+    };
     remainingWeightTotal.weight = parseInt(remainingWeightTotal.weight) + parseInt(itemWeight);
     updateWeight();
 
