@@ -118,7 +118,7 @@ form button:hover {
 }
 
 .load-list {
-    min-width: 30%;
+    min-width: 50%;
     list-style: none;
 }
 
@@ -126,7 +126,7 @@ form button:hover {
     margin: 0.5rem;
     background: white;
     color: black;
-    font-size: 1.5rem;
+    font-size: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
