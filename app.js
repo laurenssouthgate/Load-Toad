@@ -128,7 +128,7 @@ function deleteLoad(e){
     //splits text from element at '-'
     const text = item.parentElement.innerText.split('-');
     //after split extracts number only to return the weight to be removed
-    const itemWeight= parseInt(text[1].replace(/[^0-9\.]/g, ''), 10);
+    const itemWeight= parseInt(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
     //checks whether the load list is empty and sets load weight to 0 if so
     if (loadList.innerHTML.trim() === "") {
         loadWeight.weight = 0;
