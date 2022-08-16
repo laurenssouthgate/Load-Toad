@@ -37,6 +37,10 @@ const createElementAddClass = function(tagName, className){
 //update the weight displayed on the page
 const updateWeight = function(){
     weight.innerHTML = remainingWeightTotal.weight + " kg";
+    //creates alert with warning if the vehicle is overweight
+    if (remainingWeightTotal.weight < 0) {
+        alert("Your vehicle is overweight!")
+    };
 }
 
 //calculate initial unloaded weight of vehicle
