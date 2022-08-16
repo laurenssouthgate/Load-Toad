@@ -41,12 +41,12 @@ const updateWeight = function(){
     weight.classList.add("weight");
     //updates weight to contain the remaining weight
     weight.innerHTML = remainingWeightTotal.weight + " kg";
-    //creates alert with warning if the vehicle is overweight
+    //creates alert with warning if the vehicle is overweight and changes font to red
     if (remainingWeightTotal.weight < 0) {
-        alert("Your vehicle is overweight!");
-        //changes class so weight appears in red font
         weight.classList.remove("weight");
         weight.classList.add("over-weight");
+        alert("Your vehicle is overweight!");
+
     };
 }
 
