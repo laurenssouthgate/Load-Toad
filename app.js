@@ -36,12 +36,15 @@ const createElementAddClass = function(tagName, className){
 
 //update the weight displayed on the page
 const updateWeight = function(){
+    //removes over-weight class in cases where the load making vehicle overweight is removed
     weight.classList.remove("over-weight");
     weight.classList.add("weight");
+    //updates weight to contain the remaining weight
     weight.innerHTML = remainingWeightTotal.weight + " kg";
     //creates alert with warning if the vehicle is overweight
     if (remainingWeightTotal.weight < 0) {
         alert("Your vehicle is overweight!");
+        //changes class so weight appears in red font
         weight.classList.remove("weight");
         weight.classList.add("over-weight");
     };
