@@ -17,9 +17,10 @@ header{
 
 .container {
     width: 100%;
-    max-width: 1300px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .warning{
@@ -41,15 +42,15 @@ header{
     background: #ffd500;
     color: black;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 3rem;
+    font-size: 2.3rem;
     padding-left: 1em;
     padding-right: 1em;
-    border-radius: 2%;
+    border-radius: 4% 4%;
     text-align: center;
 }
 
 #weight {
-    font-size: 5rem;
+    font-size: 3rem;
 }
 
 .weight-remaining{
@@ -62,7 +63,7 @@ header{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .load{
@@ -87,11 +88,12 @@ form input, form button{
     font-size: 2rem;
     border: none;
     background: white;
-    margin: 1rem;
+    margin: .2rem;
+    width: 50%;
 }
 
 form label{
-    padding: 1rem;
+    padding: .5rem;
 }
 
 form button {
