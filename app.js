@@ -12,20 +12,54 @@ const loadWeight = {
     weight: 0
 };
 
+const unitType = {
+    units: "kg"
+};
+
+const selector = function(className){
+    const e = document.querySelector(className);
+    return e;
+}
+
+const selectorEdit = function(className, text){
+    const e = document.querySelector(className).innerText = text;
+    return e;
+}
+
 // querySelectors for various elements in HTML file
-const weight = document.querySelector(".weight");
-const vehicleWeightButton = document.querySelector(".vehicle-weight-btn");
-const addLoadButton = document.querySelector(".add-load-btn");
-const loadList = document.querySelector(".load-list");
-const loadName = document.querySelector(".load-name-input");
-const loadInput = document.querySelector(".load-weight-input");
-const vehicleWeight = document.querySelector(".vehicle-weight-input");
-const maxWeight = document.querySelector(".max-vehicle-weight-input");
+const weight = selector(".weight");
+const vehicleWeightButton = selector(".vehicle-weight-btn");
+const addLoadButton = selector(".add-load-btn");
+const loadList = selector(".load-list");
+const loadName = selector(".load-name-input");
+const loadInput = selector(".load-weight-input");
+const vehicleWeight = selector(".vehicle-weight-input");
+const maxWeight = selector(".max-vehicle-weight-input");
+const unitSelect = selector(".units")
 
 //event listeners
+unitSelect.addEventListener("change", selectUnits);
 vehicleWeightButton.addEventListener("click", calculateWeightUnloaded);
 addLoadButton.addEventListener("click", addLoad);
 loadList.addEventListener("click", deleteLoad);
+
+
+function selectUnits(e) {
+    if (unitSelect.value === "kilograms") {
+        unitType.units = " kg";
+        weight.innerText = "0 kg"
+        selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (kg):");
+        selectorEdit(".max-weight-label", "Max vehicle weight (kg):");
+        selectorEdit(".load-weight-label","Load weight (kg):");
+    }
+    if (unitSelect.value === "tonnes") {
+        unitType.units = " t";
+        weight.innerText = "0 t"
+        selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (t):");
+        selectorEdit(".max-weight-label", "Max vehicle weight (t):");
+        selectorEdit(".load-weight-label","Load weight (t):");
+    };
+};
 
 //create new element
 const createElementAddClass = function(tagName, className){
@@ -40,7 +74,7 @@ const updateWeight = function(){
     weight.classList.remove("over-weight");
     weight.classList.add("weight");
     //updates weight to contain the remaining weight
-    weight.innerHTML = remainingWeightTotal.weight + " kg";
+    weight.innerHTML = remainingWeightTotal.weight + unitType.units;
     //creates alert with warning if the vehicle is overweight and changes font to red
     if (remainingWeightTotal.weight < 0) {
         weight.classList.remove("weight");
@@ -97,7 +131,7 @@ function addLoad(e){
         const loadDiv = createElementAddClass("div", "load");
         //creates a li and adds it to the div with the load name and load weight inside
         const newLoad = createElementAddClass("li", "load-item");
-        newLoad.innerText = loadName.value + " - " + loadInput.value + " kg";
+        newLoad.innerText = loadName.value + " - " + loadInput.value + unitType.units;
         loadDiv.appendChild(newLoad);
         //creates the delete button to remove the load from the list
         const deleteButton = createElementAddClass("button", "delete-btn");
@@ -128,13 +162,13 @@ function deleteLoad(e){
     //splits text from element at '-'
     const text = item.parentElement.innerText.split('-');
     //after split extracts number only to return the weight to be removed
-    const itemWeight= parseInt(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
+    const itemWeight= parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
     //checks whether the load list is empty and sets load weight to 0 if so
     if (loadList.innerHTML.trim() === "") {
         loadWeight.weight = 0;
     };
     //calculate remaining weight
-    remainingWeightTotal.weight = parseInt(remainingWeightTotal.weight) + parseInt(itemWeight);
+    remainingWeightTotal.weight = parseFloat(remainingWeightTotal.weight) + parseFloat(itemWeight);
     updateWeight();
 
 };

@@ -29,12 +29,17 @@
         <div class="weight-remaining">
             <h2>Weight remaining:</h2>
             <h1 id="weight" class="weight">0 kg</h1>
+            <label for="units">Choose units:</label>
+            <select name="units" id="" class="units">
+                <option value="kilograms">Kilograms</option>
+                <option value="tonnes">Tonnes</option>
+            </select>
         </div>
 
         <form class="vehicle-weight">
-            <label for="vehicle-weight-input">Vehicle weight unloaded (kg):</label>
+            <label for="vehicle-weight-input" class="vehicle-weight-label">Vehicle weight unloaded (kg):</label>
             <input type="number" class="vehicle-weight-input" id="vehicle-weight-input">
-            <label for="max-vehicle-weight-input">Max vehicle weight (kg):</label>
+            <label for="max-vehicle-weight-input" class="max-weight-label">Max vehicle weight (kg):</label>
             <input type="number" class="max-vehicle-weight-input" id="max-vehicle-weight-input">
             <button class="vehicle-weight-btn" id="vehicle-weight-btn" type="submit">
                 Submit
@@ -46,7 +51,7 @@
             <h2>Add a load:</h2>
             <label for="load-name-input">Load Name:</label>
             <input type="text" class="load-name-input" id="load-name-input">
-            <label for="load-weight-input">Load weight (kg):</label>
+            <label for="load-weight-input" class="load-weight-label">Load weight (kg):</label>
             <input type="number" class="load-weight-input" id="load-weight-input">
             <button class="add-load-btn" type="submit">
                 Add
