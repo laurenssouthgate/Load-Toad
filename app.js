@@ -155,24 +155,30 @@ function deleteLoad(e){
 };
 
 function selectUnits(e) {
+    //if kilograms is selected
     if (unitSelect.value === "kilograms") {
         if(remainingWeightTotal.weight !== 0) {
+            //multiplies all weight numbers by 1000 to convert from t to kg
             loadWeight.weight = loadWeight.weight * 1000;
             maxVehicleWeightInput.weight = maxVehicleWeightInput.weight * 1000;
             vehicleWeightInput.weight = vehicleWeightInput.weight * 1000;
             remainingWeightTotal.weight = remainingWeightTotal.weight * 1000;
-            vehicleWeight.value = vehicleWeight.value * 1000;
-            maxWeight.value = maxWeight.value * 1000;
-
-            const loadItems = loadList.getElementsByTagName("li");
-            for (var i = 0; i < loadItems.length; i++) {
-                var text = loadItems[i].innerText;
-                var text = text.split('-');
-                var loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
-                loadItemWeight = loadItemWeight * 1000;
-                loadItems[i].innerText = text[0] + " - " + loadItemWeight + " kg";
-            };
         };
+        //changes the values in the input fields
+        vehicleWeight.value = vehicleWeight.value * 1000;
+        maxWeight.value = maxWeight.value * 1000;
+
+        //loops through load list and changes the numbers to conver from t to kg
+        const loadItems = loadList.getElementsByTagName("li");
+        for (var i = 0; i < loadItems.length; i++) {
+            var text = loadItems[i].innerText;
+            var text = text.split('-');
+            var loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
+            loadItemWeight = loadItemWeight * 1000;
+            loadItems[i].innerText = text[0] + " - " + loadItemWeight + " kg";
+        };
+
+        //sets units to kg and updates all elements to reflect changes 
         unitType.units = " kg";
         weight.innerText = remainingWeightTotal.weight + unitType.units;
         selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (kg):");
@@ -180,25 +186,27 @@ function selectUnits(e) {
         selectorEdit(".load-weight-label","Load weight (kg):");
 
     }
+
+    //as above but converting from kg to t
     if (unitSelect.value === "tonnes") {
         if(remainingWeightTotal.weight !== 0) {
             loadWeight.weight = loadWeight.weight / 1000;
             maxVehicleWeightInput.weight = maxVehicleWeightInput.weight / 1000;
             vehicleWeightInput.weight = vehicleWeightInput.weight / 1000;
             remainingWeightTotal.weight = remainingWeightTotal.weight / 1000;
-            vehicleWeight.value = vehicleWeight.value / 1000;
-            maxWeight.value = maxWeight.value / 1000;
-            
-            const loadItems = loadList.getElementsByTagName("li");
-            for (var i = 0; i < loadItems.length; i++) {
-                var text = loadItems[i].innerText;
-                var text = text.split('-');
-                var loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
-                loadItemWeight = loadItemWeight / 1000;
-                loadItems[i].innerText = text[0] + " - " + loadItemWeight + " t";
-            };
-
         };
+        vehicleWeight.value = vehicleWeight.value / 1000;
+        maxWeight.value = maxWeight.value / 1000;
+        
+        const loadItems = loadList.getElementsByTagName("li");
+        for (var i = 0; i < loadItems.length; i++) {
+            var text = loadItems[i].innerText;
+            var text = text.split('-');
+            var loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
+            loadItemWeight = loadItemWeight / 1000;
+            loadItems[i].innerText = text[0] + " - " + loadItemWeight + " t";
+        };
+
         unitType.units = " t";
         weight.innerText = remainingWeightTotal.weight + unitType.units;
         selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (t):");
