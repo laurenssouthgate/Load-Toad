@@ -161,6 +161,8 @@ function selectUnits(e) {
             maxVehicleWeightInput.weight = maxVehicleWeightInput.weight * 1000;
             vehicleWeightInput.weight = vehicleWeightInput.weight * 1000;
             remainingWeightTotal.weight = remainingWeightTotal.weight * 1000;
+            vehicleWeight.value = vehicleWeight.value * 1000;
+            maxWeight.value = maxWeight.value * 1000;
 
             const loadItems = loadList.getElementsByTagName("li");
             for (var i = 0; i < loadItems.length; i++) {
@@ -170,8 +172,6 @@ function selectUnits(e) {
                 loadItemWeight = loadItemWeight * 1000;
                 loadItems[i].innerText = text[0] + " - " + loadItemWeight + " kg";
             };
-            vehicleWeight.value = vehicleWeight.value * 1000;
-            maxWeight.value = maxWeight.value * 1000;
         };
         unitType.units = " kg";
         weight.innerText = remainingWeightTotal.weight + unitType.units;
@@ -186,6 +186,9 @@ function selectUnits(e) {
             maxVehicleWeightInput.weight = maxVehicleWeightInput.weight / 1000;
             vehicleWeightInput.weight = vehicleWeightInput.weight / 1000;
             remainingWeightTotal.weight = remainingWeightTotal.weight / 1000;
+            vehicleWeight.value = vehicleWeight.value / 1000;
+            maxWeight.value = maxWeight.value / 1000;
+            
             const loadItems = loadList.getElementsByTagName("li");
             for (var i = 0; i < loadItems.length; i++) {
                 var text = loadItems[i].innerText;
@@ -195,8 +198,6 @@ function selectUnits(e) {
                 loadItems[i].innerText = text[0] + " - " + loadItemWeight + " t";
             };
 
-            vehicleWeight.value = vehicleWeight.value / 1000;
-            maxWeight.value = maxWeight.value / 1000;
         };
         unitType.units = " t";
         weight.innerText = remainingWeightTotal.weight + unitType.units;
