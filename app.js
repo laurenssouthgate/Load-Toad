@@ -36,30 +36,13 @@ const loadInput = selector(".load-weight-input");
 const vehicleWeight = selector(".vehicle-weight-input");
 const maxWeight = selector(".max-vehicle-weight-input");
 const unitSelect = selector(".units")
+const item = selector(".load-item");
 
 //event listeners
-unitSelect.addEventListener("change", selectUnits);
 vehicleWeightButton.addEventListener("click", calculateWeightUnloaded);
 addLoadButton.addEventListener("click", addLoad);
 loadList.addEventListener("click", deleteLoad);
-
-
-function selectUnits(e) {
-    if (unitSelect.value === "kilograms") {
-        unitType.units = " kg";
-        weight.innerText = "0 kg"
-        selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (kg):");
-        selectorEdit(".max-weight-label", "Max vehicle weight (kg):");
-        selectorEdit(".load-weight-label","Load weight (kg):");
-    }
-    if (unitSelect.value === "tonnes") {
-        unitType.units = " t";
-        weight.innerText = "0 t"
-        selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (t):");
-        selectorEdit(".max-weight-label", "Max vehicle weight (t):");
-        selectorEdit(".load-weight-label","Load weight (t):");
-    };
-};
+unitSelect.addEventListener("change", selectUnits);
 
 //create new element
 const createElementAddClass = function(tagName, className){
@@ -149,7 +132,6 @@ function addLoad(e){
     };
 };
 
-
 function deleteLoad(e){
     const item = e.target;
     //finds whether delete button has been clicked
@@ -162,7 +144,7 @@ function deleteLoad(e){
     //splits text from element at '-'
     const text = item.parentElement.innerText.split('-');
     //after split extracts number only to return the weight to be removed
-    const itemWeight= parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
+    const itemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
     //checks whether the load list is empty and sets load weight to 0 if so
     if (loadList.innerHTML.trim() === "") {
         loadWeight.weight = 0;
@@ -170,5 +152,56 @@ function deleteLoad(e){
     //calculate remaining weight
     remainingWeightTotal.weight = parseFloat(remainingWeightTotal.weight) + parseFloat(itemWeight);
     updateWeight();
+};
 
+function selectUnits(e) {
+    if (unitSelect.value === "kilograms") {
+        if(remainingWeightTotal.weight !== 0) {
+            loadWeight.weight = loadWeight.weight * 1000;
+            maxVehicleWeightInput.weight = maxVehicleWeightInput.weight * 1000;
+            vehicleWeightInput.weight = vehicleWeightInput.weight * 1000;
+            remainingWeightTotal.weight = remainingWeightTotal.weight * 1000;
+
+            const loadItems = loadList.getElementsByTagName("li");
+            for (var i = 0; i < loadItems.length; i++) {
+                var text = loadItems[i].innerText;
+                var text = text.split('-');
+                var loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
+                loadItemWeight = loadItemWeight * 1000;
+                loadItems[i].innerText = text[0] + " - " + loadItemWeight + " kg";
+            };
+            vehicleWeight.value = vehicleWeight.value * 1000;
+            maxWeight.value = maxWeight.value * 1000;
+        };
+        unitType.units = " kg";
+        weight.innerText = remainingWeightTotal.weight + unitType.units;
+        selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (kg):");
+        selectorEdit(".max-weight-label", "Max vehicle weight (kg):");
+        selectorEdit(".load-weight-label","Load weight (kg):");
+
+    }
+    if (unitSelect.value === "tonnes") {
+        if(remainingWeightTotal.weight !== 0) {
+            loadWeight.weight = loadWeight.weight / 1000;
+            maxVehicleWeightInput.weight = maxVehicleWeightInput.weight / 1000;
+            vehicleWeightInput.weight = vehicleWeightInput.weight / 1000;
+            remainingWeightTotal.weight = remainingWeightTotal.weight / 1000;
+            const loadItems = loadList.getElementsByTagName("li");
+            for (var i = 0; i < loadItems.length; i++) {
+                var text = loadItems[i].innerText;
+                var text = text.split('-');
+                var loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
+                loadItemWeight = loadItemWeight / 1000;
+                loadItems[i].innerText = text[0] + " - " + loadItemWeight + " t";
+            };
+
+            vehicleWeight.value = vehicleWeight.value / 1000;
+            maxWeight.value = maxWeight.value / 1000;
+        };
+        unitType.units = " t";
+        weight.innerText = remainingWeightTotal.weight + unitType.units;
+        selectorEdit(".vehicle-weight-label", "Vehicle weight unloaded (t):");
+        selectorEdit(".max-weight-label", "Max vehicle weight (t):");
+        selectorEdit(".load-weight-label","Load weight (t):");
+    };
 };
