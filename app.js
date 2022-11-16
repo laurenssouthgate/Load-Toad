@@ -12,7 +12,6 @@ const loadWeightInput = document.querySelector('.load-weight-input');
 const loadList = document.querySelector('.load-list')
 const submitBtn = document.querySelector('.vehicle-weight-btn');
 const addLoadBtn = document.querySelector('.add-load-btn');
-const resetBtn = document.querySelector('.reset');
 const unitSelect = document.querySelector('.units');
 const empty = document.querySelector('.empty');
 const loadItems = loadList.getElementsByTagName('li');
@@ -49,19 +48,19 @@ submitBtn.addEventListener('click', function getInitialWeight (event) {
 
 addLoadBtn.addEventListener('click', function addLoad (event) {
     event.preventDefault();
-    empty.classList.add('hidden');
     if (loadName.value === '') {
         loadName.value = 'Unnamed Load';
     };
     if (maxWeight === 0 || totalWeight === 0) {
         alert("Please enter Vehicle Weight and Max Vehicle Weight first!");
         loadName.value = "";
-        loadWeight.value = "";
+        loadWeightInput.value = "";
     } else if (loadWeightInput.value === 0 || loadWeightInput.value === "") {
         alert("Please enter a weight")
         loadName.value = "";
         loadWeightInput.value = "";
     } else {
+        empty.classList.add('hidden');
         const loadDiv = createElementAddClass("div", "load");
         const newLoad = createElementAddClass("li", "load-item");
         newLoad.innerText = `${ loadName.value } - ${ loadWeightInput.value } ${ unitType }`;
