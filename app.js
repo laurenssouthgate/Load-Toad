@@ -172,7 +172,3 @@ function updateLoadList () {
         loadItems[i].innerText = `${ text[0] } - ${ loadItemWeight }  ${ unitType }`;
     };
 }
-
-function handleError () {
-
-}
