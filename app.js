@@ -43,20 +43,7 @@ addLoadBtn.addEventListener('click', function addLoad (event) {
         loadName.value = "";
         loadWeightInput.value = "";
     } else {
-        empty.classList.add('hidden');
-        const loadDiv = createElementAddClass("div", "load");
-        const newLoad = createElementAddClass("li", "load-item");
-        newLoad.innerText = `${ loadName.value } - ${ loadWeightInput.value } ${ unitType }`;
-        loadDiv.appendChild(newLoad);
-        const deleteButton = createElementAddClass("button", "delete-btn");
-        deleteButton.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
-        loadDiv.appendChild(deleteButton);
-        loadList.appendChild(loadDiv);
-        console.log(loadWeightInput.value);
-        loadWeight = Number (loadWeight) + Number (loadWeightInput.value);
-        calculateRemaingingWeight();
-        loadName.value = "";
-        loadWeightInput.value = "";
+        handleAddLoad();
     };
 });
 
@@ -95,6 +82,23 @@ function updateWeight () {
     } else {
         weight.classList.remove('over-weight');
     }
+}
+
+function handleAddLoad () {
+    empty.classList.add('hidden');
+    const loadDiv = createElementAddClass("div", "load");
+    const newLoad = createElementAddClass("li", "load-item");
+    newLoad.innerText = `${ loadName.value } - ${ loadWeightInput.value } ${ unitType }`;
+    loadDiv.appendChild(newLoad);
+    const deleteButton = createElementAddClass("button", "delete-btn");
+    deleteButton.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+    loadDiv.appendChild(deleteButton);
+    loadList.appendChild(loadDiv);
+    console.log(loadWeightInput.value);
+    loadWeight = Number (loadWeight) + Number (loadWeightInput.value);
+    calculateRemaingingWeight();
+    loadName.value = "";
+    loadWeightInput.value = "";
 }
 
 function deleteLoad (item) {
