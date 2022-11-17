@@ -17,25 +17,8 @@ const empty = document.querySelector('.empty');
 const loadItems = loadList.getElementsByTagName('li');
 const weight = document.querySelector('.weight');
 
-function createElementAddClass (tagName, className) {
-    const el = document.createElement(tagName);
-    el.classList.add(className);
-    return el;
-};
 
-function calculateRemaingingWeight () {
-    remainingWeight = Number (maxWeight) - Number (totalWeight) - Number (loadWeight);
-    updateWeight();
-}
-
-function updateWeight () {
-    weight.innerHTML = `${ remainingWeight } ${ unitType }`;
-    if (remainingWeight < 0) {
-        weight.classList.add('over-weight');
-    } else {
-        weight.classList.remove('over-weight');
-    }
-}
+const unitDifference = 1000;
 
 submitBtn.addEventListener('click', function getInitialWeight (event) {
     event.preventDefault();
@@ -77,59 +60,115 @@ addLoadBtn.addEventListener('click', function addLoad (event) {
     };
 });
 
-loadList.addEventListener('click', function deleteLoad(event) {
+loadList.addEventListener('click', function deleteLoadButton(event) {
     const item = event.target;
-    if(item.classList[0] === "delete-btn") {
-        const load = item.parentElement;
-        load.remove();
-    };
-    const text = item.parentElement.innerText.split('-');
-    const itemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
-    loadWeight = Number (loadWeight) - Number (itemWeight);
-    calculateRemaingingWeight();
-
-    if (loadItems.length === 0){
-        empty.classList.remove('hidden');
-    }
+    deleteLoad(item);
+    handleDelete(item);
+    handleEmptyList();
 });
 
 unitSelect.addEventListener('change', function changeUnits() {
     if (unitSelect.value === 'kilograms') {
-        unitType = 'kg';
-        if (remainingWeight !== 0) {
-            loadWeight = loadWeight * 1000;
-            remainingWeight = remainingWeight * 1000;
-            maxWeight = maxWeight * 1000;
-            totalWeight = totalWeight * 1000;
-        }
-        vehicleWeightInput.value = vehicleWeightInput.value * 1000;
-        maxVehicleWeightInput.value = maxVehicleWeightInput.value * 1000;
+        handleKgs()
     } else if (unitSelect.value === 'tonnes') {
-        unitType = 't';
-        if (remainingWeight !== 0) {
-            loadWeight = loadWeight / 1000;
-            remainingWeight = remainingWeight / 1000;
-            maxWeight = maxWeight / 1000;
-            totalWeight = totalWeight / 1000;
-        }
-        vehicleWeightInput.value = vehicleWeightInput.value / 1000;
-        maxVehicleWeightInput.value = maxVehicleWeightInput.value / 1000;        
+        handleTonnes()
     }
+    updateDOM()
+    updateLoadList()
+})
+
+function createElementAddClass (tagName, className) {
+    const el = document.createElement(tagName);
+    el.classList.add(className);
+    return el;
+};
+
+function calculateRemaingingWeight () {
+    remainingWeight = Number (maxWeight) - Number (totalWeight) - Number (loadWeight);
+    updateWeight();
+}
+
+function updateWeight () {
+    weight.innerHTML = `${ remainingWeight } ${ unitType }`;
+    if (remainingWeight < 0) {
+        weight.classList.add('over-weight');
+    } else {
+        weight.classList.remove('over-weight');
+    }
+}
+
+function deleteLoad (item) {
+    if(item.classList[0] === "delete-btn") {
+        const load = item.parentElement;
+        load.remove();
+    };
+}
+
+function handleDelete (item) {
+    let contents = item.parentElement.innerText;
+    let itemWeight= 0;
+    extractNumber(contents, itemWeight);
+    loadWeight =- Number (itemWeight);
+    calculateRemaingingWeight();
+}
+
+function handleEmptyList () {
+    if (loadItems.length === 0){
+        empty.classList.remove('hidden');
+    };
+}
+
+function extractNumber(s, n) {
+    s = s.split('-');
+    n = s[s.length - 1].replace(/[^0-9\.]/g, ''), 10;
+    return s, n;
+}
+
+function handleKgs () {
+    unitType = 'kg';
+    if (remainingWeight !== 0) {
+        loadWeight = loadWeight * unitDifference;
+        remainingWeight = remainingWeight * unitDifference;
+        maxWeight = maxWeight * unitDifference;
+        totalWeight = totalWeight * unitDifference;
+    }
+    vehicleWeightInput.value = vehicleWeightInput.value * unitDifference;
+    maxVehicleWeightInput.value = maxVehicleWeightInput.value * unitDifference;
+}
+
+function handleTonnes () {
+    unitType = 't';
+    if (remainingWeight !== 0) {
+        loadWeight = loadWeight / unitDifference;
+        remainingWeight = remainingWeight / unitDifference;
+        maxWeight = maxWeight / unitDifference;
+        totalWeight = totalWeight / unitDifference;
+    }
+    vehicleWeightInput.value = vehicleWeightInput.value / unitDifference;
+    maxVehicleWeightInput.value = maxVehicleWeightInput.value / unitDifference; 
+}
+
+function updateDOM () {
     document.querySelector('.vehicle-weight-label').innerHTML = `Vehicle weight unloaded (${ unitType }):`;
     document.querySelector('.max-weight-label').innerHTML = `Max vehicle weight (${ unitType }):` ;
     document.querySelector('.load-weight-label').innerHTML = `Load weight (${ unitType }):` ;
     document.querySelector('.weight').innerHTML = `${ remainingWeight } ${ unitType }`;
+}
 
+function updateLoadList () {
     for (let i = 0; i < loadItems.length; i++) {
         let text = loadItems[i].innerText;
         text = text.split('-');
         let loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
         if (unitType === 'kg') {
-            loadItemWeight = loadItemWeight * 1000;
+            loadItemWeight = loadItemWeight * unitDifference;
         } else {
-            loadItemWeight = loadItemWeight / 1000;
+            loadItemWeight = loadItemWeight / unitDifference;
         };
         loadItems[i].innerText = `${ text[0] } - ${ loadItemWeight }  ${ unitType }`;
     };
+}
 
-})
+function handleError () {
+
+}
