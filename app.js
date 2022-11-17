@@ -50,7 +50,6 @@ addLoadBtn.addEventListener('click', function addLoad (event) {
 loadList.addEventListener('click', function deleteLoadButton(event) {
     const item = event.target;
     deleteLoad(item);
-    handleDelete(item);
     handleEmptyList();
 });
 
@@ -106,13 +105,14 @@ function deleteLoad (item) {
         const load = item.parentElement;
         load.remove();
     };
+    handleDelete(item);
 }
 
 function handleDelete (item) {
     let contents = item.parentElement.innerText;
     let itemWeight= 0;
     extractNumber(contents, itemWeight);
-    loadWeight =- Number (itemWeight);
+    loadWeight = Number (loadWeight) - Number (itemWeight);
     calculateRemaingingWeight();
 }
 
