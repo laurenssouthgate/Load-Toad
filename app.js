@@ -60,7 +60,7 @@ unitSelect.addEventListener('change', function changeUnits() {
     } else if (unitSelect.value === 'tonnes') {
         handleTonnes()
     }
-    updateDOM()
+    updateHTML()
     updateLoadList()
 })
 
@@ -152,7 +152,7 @@ function handleTonnes () {
     maxVehicleWeightInput.value = maxVehicleWeightInput.value / unitDifference; 
 }
 
-function updateDOM () {
+function updateHTML () {
     document.querySelector('.vehicle-weight-label').innerHTML = `Vehicle weight unloaded (${ unitType }):`;
     document.querySelector('.max-weight-label').innerHTML = `Max vehicle weight (${ unitType }):` ;
     document.querySelector('.load-weight-label').innerHTML = `Load weight (${ unitType }):` ;
