@@ -16,17 +16,23 @@ const unitSelect = document.querySelector('.units');
 const empty = document.querySelector('.empty');
 const loadItems = loadList.getElementsByTagName('li');
 const weight = document.querySelector('.weight');
+const error = document.querySelector('.error')
 
 
 const unitDifference = 1000;
 
 submitBtn.addEventListener('click', function getInitialWeight (event) {
     event.preventDefault();
+    error.innerHTML = '';
+    if (loadItems.length > 0) {
+
+    } else {
     totalWeight = 0;
     maxWeight = 0;
     maxWeight = Number (maxWeight) + Number (maxVehicleWeightInput.value);
     totalWeight = vehicleWeightInput.value;
     calculateRemaingingWeight()
+    }
 });
 
 addLoadBtn.addEventListener('click', function addLoad (event) {
@@ -35,14 +41,12 @@ addLoadBtn.addEventListener('click', function addLoad (event) {
         loadName.value = 'Unnamed Load';
     };
     if (maxWeight === 0 || totalWeight === 0) {
-        alert("Please enter Vehicle Weight and Max Vehicle Weight first!");
-        loadName.value = "";
-        loadWeightInput.value = "";
+        error.innerHTML = 'Please enter Vehicle Weight and Max Vehicle Weight first!';
+        loadName.value = '';
     } else if (loadWeightInput.value === 0 || loadWeightInput.value === "") {
-        alert("Please enter a weight")
-        loadName.value = "";
-        loadWeightInput.value = "";
+        error.innerHTML = 'Please enter a weight for the Load!';
     } else {
+        error.innerHTML = '';
         handleAddLoad();
     };
 });
@@ -59,6 +63,7 @@ unitSelect.addEventListener('change', function changeUnits() {
     } else if (unitSelect.value === 'tonnes') {
         handleTonnes()
     }
+    console.log(loadWeight)
     updateHTML()
     updateLoadList()
 })
@@ -76,7 +81,7 @@ function calculateRemaingingWeight () {
 
 function updateWeight () {
     weight.innerHTML = `${ remainingWeight } ${ unitType }`;
-    if (remainingWeight < 0) {
+    if (remainingWeight <= 0) {
         weight.classList.add('over-weight');
     } else {
         weight.classList.remove('over-weight');
@@ -93,7 +98,6 @@ function handleAddLoad () {
     deleteButton.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
     loadDiv.appendChild(deleteButton);
     loadList.appendChild(loadDiv);
-    console.log(loadWeightInput.value);
     loadWeight = Number (loadWeight) + Number (loadWeightInput.value);
     calculateRemaingingWeight();
     loadName.value = "";
@@ -105,15 +109,21 @@ function deleteLoad (item) {
         const load = item.parentElement;
         load.remove();
     };
-    handleDelete(item);
+    handleDeleteLoad(item);
+    calculateRemaingingWeight();
 }
 
-function handleDelete (item) {
-    let contents = item.parentElement.innerText;
-    let itemWeight= 0;
-    extractNumber(contents, itemWeight);
+function handleDeleteLoad (item) {
+    console.log(loadWeight)
+    const contents = { 
+        value: item.parentElement.innerText,
+        arr: [], 
+        num: []
+    };
+    splitString(contents.value, contents.arr);
+    extractNumber(contents.arr[contents.arr.length - 1], contents.num);
+    let itemWeight = contents.num;
     loadWeight = Number (loadWeight) - Number (itemWeight);
-    calculateRemaingingWeight();
 }
 
 function handleEmptyList () {
@@ -122,11 +132,17 @@ function handleEmptyList () {
     };
 }
 
-function extractNumber(s, n) {
-    s = s.split('-');
-    n = s[s.length - 1].replace(/[^0-9\.]/g, ''), 10;
-    return s, n;
+function extractNumber(str, arr) {
+    str = str.replace(/[^0-9\.]/g, ''), 10;
+    arr.push(str);
 }
+
+function splitString(str, arr) {
+    str = str.split('-')
+    for (let i = 0; i < str.length; i++){
+        arr.push(str[i]);
+    };
+};
 
 function handleKgs () {
     unitType = 'kg';
@@ -135,7 +151,7 @@ function handleKgs () {
         remainingWeight = remainingWeight * unitDifference;
         maxWeight = maxWeight * unitDifference;
         totalWeight = totalWeight * unitDifference;
-    }
+    };
     vehicleWeightInput.value = vehicleWeightInput.value * unitDifference;
     maxVehicleWeightInput.value = maxVehicleWeightInput.value * unitDifference;
 }
@@ -147,7 +163,7 @@ function handleTonnes () {
         remainingWeight = remainingWeight / unitDifference;
         maxWeight = maxWeight / unitDifference;
         totalWeight = totalWeight / unitDifference;
-    }
+    };
     vehicleWeightInput.value = vehicleWeightInput.value / unitDifference;
     maxVehicleWeightInput.value = maxVehicleWeightInput.value / unitDifference; 
 }
@@ -161,14 +177,20 @@ function updateHTML () {
 
 function updateLoadList () {
     for (let i = 0; i < loadItems.length; i++) {
-        let text = loadItems[i].innerText;
-        text = text.split('-');
-        let loadItemWeight = parseFloat(text[text.length - 1].replace(/[^0-9\.]/g, ''), 10);
+        const contents = {
+            value: loadItems[i].innerText,
+            arr: [],
+            num: []
+        }
+        splitString(contents.value, contents.arr);
+        extractNumber(contents.arr[contents.arr.length - 1], contents.num);
+        let loadItemWeight = contents.num
+        let text = contents.arr[contents.arr.length - 2]
         if (unitType === 'kg') {
             loadItemWeight = loadItemWeight * unitDifference;
-        } else {
+        } else if (unitType === 't'){
             loadItemWeight = loadItemWeight / unitDifference;
         };
-        loadItems[i].innerText = `${ text[0] } - ${ loadItemWeight }  ${ unitType }`;
+        loadItems[i].innerText = `${ text } - ${ loadItemWeight }  ${ unitType }`;
     };
 }
