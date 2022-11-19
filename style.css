@@ -227,6 +227,11 @@ form button:hover, .reset:hover {
     font-family: 'Poppins', sans-serif;
 }
 
+.error {
+    font-weight: bold;
+    padding: 5px;
+}
+
 @media screen and (max-width: 960px) {
     .container {
         display: flex;
@@ -242,5 +247,14 @@ form button:hover, .reset:hover {
         margin: 5px;
         margin-bottom: 40px;
         padding: 5px;
+    }
+    .vehicle-weight {
+        margin-top: 24px;
+    }
+    .add-load {
+        margin-bottom: 12px;
+    }
+    .load-container {
+        margin-bottom: 24px;
     }
 }
