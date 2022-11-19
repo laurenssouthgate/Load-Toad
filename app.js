@@ -23,7 +23,9 @@ const unitDifference = 1000;
 
 submitBtn.addEventListener('click', function getInitialWeight (event) {
     event.preventDefault();
-    error.innerHTML = '';
+    if (error.innerHTML !== '') {
+        error.innerHTML = '';
+    };
     totalWeight = 0;
     maxWeight = 0;
     maxWeight = Number (maxWeight) + Number (maxVehicleWeightInput.value);
